@@ -51,235 +51,6 @@ plt.rcParams.update({
 
 st.set_page_config(page_title="SDE-OptionLab", page_icon="📈", layout="wide")
 
-# ---------------------------------------------------------------------------
-# Global CSS — dark premium theme
-# ---------------------------------------------------------------------------
-st.markdown("""
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-/* ── Base ─────────────────────────────────────────────── */
-html, body, [class*="css"] {
-    font-family: 'Inter', sans-serif !important;
-}
-
-/* ── App background ──────────────────────────────────── */
-.stApp {
-    background: linear-gradient(160deg, #0a0f1e 0%, #0f1829 40%, #0a1628 100%) !important;
-}
-
-/* ── Sidebar ─────────────────────────────────────────── */
-[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #0d1b2e 0%, #0a1628 100%) !important;
-    border-right: 1px solid rgba(99,179,237,0.12) !important;
-}
-[data-testid="stSidebar"] .stMarkdown h3 {
-    color: #63b3ed !important;
-    font-size: 0.8rem !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.12em !important;
-    text-transform: uppercase !important;
-    margin-top: 1.2rem !important;
-}
-[data-testid="stSidebar"] label {
-    color: #a0aec0 !important;
-    font-size: 0.82rem !important;
-    font-weight: 500 !important;
-}
-
-/* ── Inputs & Selects ────────────────────────────────── */
-[data-testid="stSelectbox"] > div,
-[data-testid="stNumberInput"] input,
-[data-testid="stTextInput"] input {
-    background: rgba(255,255,255,0.04) !important;
-    border: 1px solid rgba(99,179,237,0.2) !important;
-    border-radius: 8px !important;
-    color: #e2e8f0 !important;
-    transition: border-color 0.2s ease !important;
-}
-[data-testid="stSelectbox"] > div:hover,
-[data-testid="stNumberInput"] input:focus {
-    border-color: rgba(99,179,237,0.5) !important;
-    box-shadow: 0 0 0 3px rgba(99,179,237,0.08) !important;
-}
-
-/* ── Slider ──────────────────────────────────────────── */
-[data-testid="stSlider"] [role="slider"] {
-    background: #4299e1 !important;
-    box-shadow: 0 0 10px rgba(66,153,225,0.6) !important;
-}
-[data-testid="stSlider"] [class*="StyledThumb"] {
-    background: #4299e1 !important;
-}
-
-/* ── Buttons ─────────────────────────────────────────── */
-.stButton > button, .stFormSubmitButton > button {
-    background: linear-gradient(135deg, #2b6cb0 0%, #3182ce 50%, #4299e1 100%) !important;
-    color: #fff !important;
-    border: none !important;
-    border-radius: 10px !important;
-    font-weight: 600 !important;
-    font-size: 0.9rem !important;
-    letter-spacing: 0.02em !important;
-    padding: 0.6rem 1.4rem !important;
-    transition: all 0.25s ease !important;
-    box-shadow: 0 4px 15px rgba(49,130,206,0.35) !important;
-}
-.stButton > button:hover, .stFormSubmitButton > button:hover {
-    transform: translateY(-2px) !important;
-    box-shadow: 0 8px 25px rgba(49,130,206,0.5) !important;
-    background: linear-gradient(135deg, #3182ce 0%, #4299e1 50%, #63b3ed 100%) !important;
-}
-
-/* ── Metric cards ────────────────────────────────────── */
-[data-testid="metric-container"] {
-    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%) !important;
-    border: 1px solid rgba(99,179,237,0.18) !important;
-    border-radius: 14px !important;
-    padding: 1.1rem 1.2rem !important;
-    backdrop-filter: blur(10px) !important;
-    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
-}
-[data-testid="metric-container"]:hover {
-    transform: translateY(-2px) !important;
-    box-shadow: 0 8px 30px rgba(66,153,225,0.15) !important;
-    border-color: rgba(99,179,237,0.35) !important;
-}
-[data-testid="metric-container"] [data-testid="stMetricLabel"] {
-    color: #90cdf4 !important;
-    font-size: 0.78rem !important;
-    font-weight: 600 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.08em !important;
-}
-[data-testid="metric-container"] [data-testid="stMetricValue"] {
-    color: #e2e8f0 !important;
-    font-size: 1.7rem !important;
-    font-weight: 700 !important;
-}
-
-/* ── Tabs ────────────────────────────────────────────── */
-[data-testid="stTabs"] [role="tablist"] {
-    border-bottom: 1px solid rgba(99,179,237,0.15) !important;
-    gap: 0.5rem !important;
-}
-[data-testid="stTabs"] button[role="tab"] {
-    color: #718096 !important;
-    font-weight: 500 !important;
-    font-size: 0.88rem !important;
-    border-radius: 8px 8px 0 0 !important;
-    padding: 0.5rem 1rem !important;
-    transition: all 0.2s ease !important;
-    background: transparent !important;
-    border: none !important;
-}
-[data-testid="stTabs"] button[role="tab"]:hover {
-    color: #90cdf4 !important;
-    background: rgba(99,179,237,0.06) !important;
-}
-[data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
-    color: #63b3ed !important;
-    font-weight: 700 !important;
-    border-bottom: 2px solid #4299e1 !important;
-    background: rgba(66,153,225,0.08) !important;
-}
-
-/* ── Dataframe ───────────────────────────────────────── */
-[data-testid="stDataFrame"] {
-    border: 1px solid rgba(99,179,237,0.15) !important;
-    border-radius: 12px !important;
-    overflow: hidden !important;
-}
-
-/* ── Divider ─────────────────────────────────────────── */
-hr {
-    border: none !important;
-    border-top: 1px solid rgba(99,179,237,0.12) !important;
-    margin: 1.5rem 0 !important;
-}
-
-/* ── Alerts / info boxes ─────────────────────────────── */
-[data-testid="stAlert"] {
-    border-radius: 10px !important;
-    border-left-width: 3px !important;
-}
-
-/* ── Caption text ────────────────────────────────────── */
-.stCaption, [data-testid="stCaptionContainer"] {
-    color: #4a5568 !important;
-    font-size: 0.8rem !important;
-}
-
-/* ── Expander ────────────────────────────────────────── */
-[data-testid="stExpander"] {
-    background: rgba(255,255,255,0.03) !important;
-    border: 1px solid rgba(99,179,237,0.12) !important;
-    border-radius: 10px !important;
-}
-
-/* ── Form container ──────────────────────────────────── */
-[data-testid="stForm"] {
-    background: rgba(255,255,255,0.02) !important;
-    border: 1px solid rgba(99,179,237,0.1) !important;
-    border-radius: 12px !important;
-    padding: 1rem !important;
-}
-
-/* ── Subheader ───────────────────────────────────────── */
-h2, h3 {
-    color: #e2e8f0 !important;
-}
-h3 {
-    font-size: 1.05rem !important;
-    font-weight: 600 !important;
-}
-
-/* ── Checkbox ────────────────────────────────────────── */
-[data-testid="stCheckbox"] label {
-    color: #a0aec0 !important;
-    font-size: 0.85rem !important;
-}
-
-/* ── Radio ───────────────────────────────────────────── */
-[data-testid="stRadio"] label {
-    color: #a0aec0 !important;
-    font-size: 0.85rem !important;
-}
-
-/* ── Multiselect ─────────────────────────────────────── */
-[data-testid="stMultiSelect"] > div {
-    background: rgba(255,255,255,0.04) !important;
-    border: 1px solid rgba(99,179,237,0.2) !important;
-    border-radius: 8px !important;
-}
-
-/* ── Download button ─────────────────────────────────── */
-[data-testid="stDownloadButton"] > button {
-    background: linear-gradient(135deg, #1a365d 0%, #2a4a7f 100%) !important;
-    color: #90cdf4 !important;
-    border: 1px solid rgba(99,179,237,0.3) !important;
-    border-radius: 10px !important;
-    font-weight: 600 !important;
-    transition: all 0.25s ease !important;
-}
-[data-testid="stDownloadButton"] > button:hover {
-    background: linear-gradient(135deg, #2a4a7f 0%, #3182ce 100%) !important;
-    border-color: rgba(99,179,237,0.6) !important;
-    transform: translateY(-2px) !important;
-}
-
-/* ── Spinner ─────────────────────────────────────────── */
-[data-testid="stSpinner"] {
-    color: #4299e1 !important;
-}
-
-/* ── Matplotlib figures ──────────────────────────────── */
-[data-testid="stImage"] img {
-    border-radius: 12px !important;
-    border: 1px solid rgba(99,179,237,0.12) !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
 MODEL_LABELS = {
     "gbm_exact": "Correlated GBM — exact terminal simulation",
     "gbm_euler": "Correlated GBM — Euler–Maruyama",
@@ -305,17 +76,9 @@ ENGINE_LABELS = {
 # Sidebar -- Option type & model (outside the form so the UI updates live)
 # ---------------------------------------------------------------------------
 
-st.sidebar.markdown("""
-<div style="padding:0.4rem 0 0.8rem 0;">
-  <div style="font-size:1.3rem;font-weight:800;letter-spacing:-0.01em;
-              background:linear-gradient(90deg,#63b3ed,#4299e1);-webkit-background-clip:text;
-              -webkit-text-fill-color:transparent;background-clip:text;">📈 SDE-OptionLab</div>
-  <div style="font-size:0.75rem;color:#4a5568;margin-top:0.2rem;line-height:1.4;">
-    Spread &amp; better-of option pricing<br/>across multiple numerical methods
-  </div>
-</div>
-<hr style="border:none;border-top:1px solid rgba(99,179,237,0.15);margin:0 0 0.5rem 0;"/>
-""", unsafe_allow_html=True)
+st.sidebar.title("📈 SDE-OptionLab")
+st.sidebar.caption("Spread & better-of option pricing across multiple numerical methods")
+st.sidebar.divider()
 
 st.sidebar.markdown("### 1 · Option & model")
 
@@ -546,44 +309,13 @@ def run_pricing():
 # Main area
 # ---------------------------------------------------------------------------
 
-st.markdown("""
-<div style="
-    background: linear-gradient(135deg, rgba(49,130,206,0.12) 0%, rgba(99,179,237,0.06) 50%, rgba(66,153,225,0.04) 100%);
-    border: 1px solid rgba(99,179,237,0.2);
-    border-radius: 18px;
-    padding: 2rem 2.2rem 1.6rem 2.2rem;
-    margin-bottom: 1.8rem;
-    position: relative;
-    overflow: hidden;
-">
-  <div style="
-      position:absolute;top:-40px;right:-40px;width:180px;height:180px;
-      background:radial-gradient(circle,rgba(66,153,225,0.15) 0%,transparent 70%);
-      border-radius:50%;pointer-events:none;
-  "></div>
-  <div style="
-      position:absolute;bottom:-30px;left:60px;width:120px;height:120px;
-      background:radial-gradient(circle,rgba(99,179,237,0.08) 0%,transparent 70%);
-      border-radius:50%;pointer-events:none;
-  "></div>
-  <div style="
-      font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;
-      color:#4299e1;margin-bottom:0.5rem;
-  ">Quantitative Finance · Options Pricing Engine</div>
-  <h1 style="
-      font-size:2.4rem;font-weight:800;letter-spacing:-0.03em;margin:0 0 0.6rem 0;
-      background:linear-gradient(90deg,#e2e8f0 0%,#90cdf4 60%,#63b3ed 100%);
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-      line-height:1.15;
-  ">📈 SDE-OptionLab</h1>
-  <p style="
-      color:#718096;font-size:0.95rem;line-height:1.6;margin:0;
-      max-width:680px;
-  ">A configurable simulation toolkit for pricing <strong style="color:#90cdf4;">spread</strong> and
-  <strong style="color:#90cdf4;">better-of</strong> options on two correlated assets — multiple
-  asset-dynamics models, numerical engines, and side-by-side diagnostics.</p>
-</div>
-""", unsafe_allow_html=True)
+st.title("📈 SDE-OptionLab")
+st.caption(
+    "Quantitative Finance · Options Pricing Engine — "
+    "pricing spread & better-of options on two correlated assets across "
+    "multiple asset-dynamics models, numerical engines, and side-by-side diagnostics."
+)
+st.divider()
 
 if submitted or "last_result" not in st.session_state:
     if submitted:
